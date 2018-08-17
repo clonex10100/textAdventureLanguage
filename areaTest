@@ -1,0 +1,12 @@
+~print~
+hello world
+does my file parsing work
+~endprint~
+set test True
+set test2 False
+if test and test2
+goto areaTest2
+endif
+~print~
+did not go to area2
+~endprint~
