@@ -41,8 +41,6 @@ def encounter(player, enemy):
         elif i == "inspect":
             out(enemy.getDesc())
             #stuff
-        elif i:
-            out(enemy.getDesc())
 
 def out(x):
     print(x)
