@@ -1,3 +1,5 @@
+from items import *
+from entities import *
 class varHandler():
     #Designed to offer consistant flags accessible by area/dialogue nodes
     def __init__(self):
@@ -14,77 +16,10 @@ class varHandler():
             return 0
         except:
             return -1
-
-class item():
-    pass
-class armorPiece(item):
-    format = ["desc","protection"]
-    def __init__(self,f):
-        f = open(f)
-        lines = [i[:-1] for i in f]
-        if lines[0] == "desc":
-            for i in range(len(lines)):
-                if  lines[i] == "enddesc":
-                    end = i+1
-                    break
-            self.desc="\n".join(lines[1:end-1])
-        else:
-            self.desc=""
-            end = 1
-        x=lines[end].split(" ")
-        if x[0] == "type":
-            if x[1] in ["helm","chest","legs","boots"]:
-                self.type=x[1]
-            else:
-                print("Armor has invalid type")
-        else:
-            print("Armor has no type")
-        x=lines[end+1].split(" ")
-        if x[0] == "protection":
-            self.protection=int(x[1])
-        else:
-            print("Armor piece has no protection")
-        f.close()
-    def getProtection(self):
-        return self.protection
-
-    def getType(self):
-        return self.type
-    def getDesc(self):
-        return self.desc
-        
-        
-
-
-class armor():
-    def __init__(self):
-        self.armor={"helm":None,"chest":None,"leg":None,"boot":None}
-        self.protection=0
-    def getArmor(val):
-        return self.get(val,-1)
-    def wearArmor(self,armor):
-        try:
-            self.protection=sum([i.getProtection() if i != None else 0 for i in self.armor.values()])
-            return 0
-        except:
-            return -1
-    def calcDamage(self,damage):
-        print(self.protection)
-        return int(damage * (0.01*(100 - self.protection) ))
-
-class player():
-    def __init_(self,name):
-        self.name = name
-        self.health=100
-        self.armor = armor()
-        self.inventory={}#map names to items
-        self.weapon=None
-
-
-
 class area():
     ifKeywords=["not","match","input","have","<",">"]
     varsH = varHandler()
+    player = player("Noah")
 
     def __init__(self,areaFile):
             self.file = open(areaFile,"r")
