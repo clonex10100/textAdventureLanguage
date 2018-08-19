@@ -1,0 +1,6 @@
+name hit
+~desc~
+blah
+~enddesc~
+type fire
+damage 5

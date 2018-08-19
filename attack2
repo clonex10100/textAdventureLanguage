@@ -1,0 +1,6 @@
+name whack
+~desc~
+blah
+~enddesc~
+type water
+damage 5

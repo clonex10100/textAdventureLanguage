@@ -47,11 +47,11 @@ class weapon(item):
 
         self.attacks={}
         for i in f.get("attacks").split("\n"):
-            attack = attack(i)
-            self.attacks[attack.getName()] = attack
+            att = attack(i)
+            self.attacks[att.getName()] = att
 
     def getAttacks(self):
-        return self.attacks.keys()
+        return list(self.attacks.keys())
     def getAttack(self,attack):
         return self.attacks.get(attack)
 
@@ -86,4 +86,6 @@ class armorSet():
             return -1
 
     def calcDamage(self,attack):
-        return int(attack.getDamage * (0.01*(100 - sum([self.armor.get(i.getProtection(attack.getType)) for i in armor.keys()]))))
+        return int(attack.getDamage() * (0.01*(100 - sum([self.armor.get(i).getProtection(attack.getType) if self.armor.get(i) != None else 0 for i in self.armor.keys()]))))
+
+

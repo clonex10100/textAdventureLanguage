@@ -1,0 +1,9 @@
+class weapon
+name bam
+~desc~
+stuff
+~enddesc~
+~attacks~
+attack1
+attack2
+~endattacks~

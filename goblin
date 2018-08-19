@@ -1,0 +1,10 @@
+name fred
+~desc~
+a globntoisa
+~enddesc~
+health 20
+weapon club
+~drops~
+club 0-15
+~enddrops~
+

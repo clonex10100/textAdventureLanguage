@@ -1,33 +1,41 @@
 from items import *
 from utilities import parse
-from ui import *
+#from ui import *
+import ui
 #inventory class
-class player(entity):
+class player():
     def __init__(self,name):
         self.name = name
         self.health=100
         self.armor = armorSet()
         self.inventory={}#map names to items
         self.weapon=None
+    def getWeapon(self):
+        return self.weapon
 
     def attack(self, enemy, attackIndex):
-        attack =weapon.getAttack(weapon.getAttacks[attackIndex])
-        print(self.name + " Hits "+enemy.getName + " with " attack.getName()
-        enemy.hit()
+        attack = self.weapon.getAttack(self.weapon.getAttacks()[attackIndex])
+        ui.inp()
+        ui.out(self.name + " hits "+enemy.getName() + " with " + attack.getName())
+        return enemy.hit(attack)
+    def getName(self):
+        return self.name
     def hit(self,attack):
-        self.health -= armor.calcDamage(attack)
-        return self.checkDeath()
-
+        self.health -= self.armor.calcDamage(attack)
+        if self.health <= 0:
+            return -1
+        else:
+            return 0
 class inventory():
     def __init__(self):
         pass
 
-class enemy(entity):
+class enemy():
     def __init__(self,f):
         f = parse(f)
         self.name = f.get("name")
         self.desc = f.get("desc")
-        self.health = f.get("health")
+        self.health = int(f.get("health"))
 
         self.weapon = weapon(f.get("weapon"))
         self.armor = armorSet()
@@ -43,23 +51,25 @@ class enemy(entity):
         for i in f.get("drops").split("\n"):
             i = i.split(" ")
             dropRange=i[1].split("-")
-            drops[(dropRange[0],dropRange[1]] = createItem(i[0])
+            self.drops[(dropRange[0],dropRange[1])] = createItem(i[0])
 
             
 
     def attack(self, enemy, attackIndex):
-        attack = weapon.getAttack(weapon.getAttacks[attackIndex])
-        print(self.name + " Hits "+enemy.getName + " with " attack.getName())
-        enemy.hit(attack)
+        attack = self.weapon.getAttack(self.weapon.getAttacks()[attackIndex])
+        print(self.name + " hits "+enemy.getName() + " with " + attack.getName())
+        return enemy.hit(attack)
 
     def hit(self,attack):
-        self.health -= armor.calcDamage(attack.getDamgage())
-        if health <= 0:
-            return self.getDrop()
+        self.health -= self.armor.calcDamage(attack)
+        if self.health <= 0:
+            return -1
         else:
             return 0
 
-    def getName():
+    def getName(self):
         return self.name
-    def getDesc():
+    def getDesc(self):
         return self.desc
+    def getWeapon(self):
+        return self.weapon
